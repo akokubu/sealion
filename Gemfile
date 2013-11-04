@@ -38,16 +38,18 @@ end
 
 group :development, :test do
   gem 'watchr'
-end
-
-group :development, :test do
   gem 'spring'
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'cucumber-rails', :require => false, git: 'https://github.com/cucumber/cucumber-rails.git'
   gem 'database_cleaner'
   gem 'terminal-notifier-guard'
+end
+
+group :test do
   gem 'capybara'
+  gem 'launchy'
+  gem 'poltergeist'
 end
 
 # Use ActiveModel has_secure_password
