@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = current_user.tasks
     @tasks = @tasks.uncompleted
   end
 
@@ -25,10 +26,11 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
+    current_user.tasks << Task.new(task_params)
+
 
     respond_to do |format|
-      if @task.save
+      if current_user
         format.html { redirect_to tasks_path, notice: 'Task was successfully created.' }
         format.json { render action: 'show', status: :created, location: @task }
       else
@@ -60,6 +62,13 @@ class TasksController < ApplicationController
       format.html { redirect_to tasks_url }
       format.json { head :no_content }
     end
+  end
+
+  def toggle
+    render nothing: true
+    @task = Task.find(params[:id])
+    @task.complete = !@task.complete
+    @task.save
   end
 
   private

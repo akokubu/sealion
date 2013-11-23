@@ -52,6 +52,12 @@ group :test do
   gem 'poltergeist'
 end
 
+gem 'devise'
+
+gem 'twitter-bootstrap-rails'
+gem 'therubyracer'
+gem 'less-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
