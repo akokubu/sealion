@@ -1,8 +1,18 @@
 <h1>Listing tasks</h1>
 <p id="notice"><%= notice %></p>
+
+
+<%= form_tag '/tasks/' do %>
+  <%= text_field :task, :title %>
+  <%= submit_tag "Add Task"%>
+<% end %>
+
+
+
 <table>
   <thead>
     <tr>
+      <th>Complete<th>
       <th>Title</th>
       <th>Description</th>
       <th>Complete</th>
@@ -15,6 +25,7 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
+        <td><%= check_box_tag '', '', task.complete, {'data-id' => task.id} %></td>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
         <td><%= task.complete %></td>
@@ -29,3 +40,11 @@
 <br>
 
 <%= link_to 'New Task', new_task_path %>
+
+<script>
+$(function() {
+    $("input[type=checkbox]").click(function() {
+        $.post('/tasks/' + $(this).data('id') + '/toggle');
+    });
+});
+</script>
