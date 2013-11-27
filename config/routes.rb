@@ -1,6 +1,7 @@
 Sealion::Application.routes.draw do
   devise_for :users
   post 'tasks/:id/toggle' => "tasks#toggle"
+  post 'tasks/:id/toggle/star' => "tasks#toggle_star"
   resources :tasks
   root :to => "tasks#index"
 
