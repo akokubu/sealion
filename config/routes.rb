@@ -1,9 +1,11 @@
 Sealion::Application.routes.draw do
   devise_for :users
+  get 'tasks/uncomplete' => "tasks#index_uncomplete"
+  get 'tasks/nextaction' => "tasks#index_nextaction"
   post 'tasks/:id/toggle' => "tasks#toggle"
   post 'tasks/:id/toggle/star' => "tasks#toggle_star"
   resources :tasks
-  root :to => "tasks#index"
+  root :to => "tasks#index_nextaction"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -27,7 +27,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= check_box_tag '', '', task.complete, {'data-id' => task.id} %></td>
-        <td><span id="star" class="star <% if task.next_flg then %>stared<% end %>" data-id="<%= task.id %>">★</span></td>
+        <td><span class="star <% if task.next_flg then %>stared<% end %>" data-id="<%= task.id %>">★</span></td>
         <td><%= task.title %></td>
         <td><%= task.description %></td>
         <td><%= task.complete %></td>
@@ -50,7 +50,7 @@ $(function() {
     });
 
 
-    $('#star').click(function() {
+    $('.star').click(function() {
       $(this).toggleClass("stared");
       $.post('/tasks/' + $(this).data('id') + '/toggle/star');
     });

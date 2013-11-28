@@ -6,7 +6,26 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = current_user.tasks
+  end
+
+  def index_uncomplete
+    @tasks = current_user.tasks
     @tasks = @tasks.uncompleted
+
+    render 'index'
+  end
+
+  def index_nextaction
+    @tasks = current_user.tasks
+    @tasks = @tasks.uncompleted
+    @tasks = @tasks.nextaction
+
+    if @tasks.size == 0 
+      redirect_to tasks_uncomplete_path 
+      return
+    end
+
+    render 'index'
   end
 
   # GET /tasks/1
@@ -31,7 +50,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if current_user
-        format.html { redirect_to tasks_path, notice: 'Task was successfully created.' }
+        format.html { redirect_to tasks_uncomplete_path, notice: 'Task was successfully created.' }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
