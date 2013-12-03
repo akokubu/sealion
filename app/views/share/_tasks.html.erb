@@ -1,0 +1,47 @@
+
+<table>
+  <thead>
+    <tr>
+      <th>Complete<th>
+      <td>NextAction</td>
+      <th>Title</th>
+      <th>Description</th>
+      <th>ProjectId</th>
+      <th>Complete</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% tasks.each do |task| %>
+      <tr>
+        <td><%= check_box_tag '', '', task.complete, {'data-id' => task.id} %></td>
+        <td><span class="star <% if task.next_flg then %>stared<% end %>" data-id="<%= task.id %>">★</span></td>
+        <td><%= task.title %></td>
+        <td><%= task.complete %></td>
+        <td><%= task.description %></td>
+        <td><%= task.project_id %></td>
+        <td><%= task.complete %></td>
+        <td><%= link_to 'Show', task %></td>
+        <td><%= link_to 'Edit', edit_task_path(task) %></td>
+        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+$(function() {
+    $("input[type=checkbox]").click(function() {
+        $.post('/tasks/' + $(this).data('id') + '/toggle');
+    });
+
+
+    $('.star').click(function() {
+      $(this).toggleClass("stared");
+      $.post('/tasks/' + $(this).data('id') + '/toggle/star');
+    });
+});
+</script>
