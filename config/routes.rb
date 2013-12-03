@@ -1,4 +1,6 @@
 Sealion::Application.routes.draw do
+  resources :projects
+
   devise_for :users
   get 'tasks/uncomplete' => "tasks#index_uncomplete"
   get 'tasks/nextaction' => "tasks#index_nextaction"
